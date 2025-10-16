@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 // Головний клас для демонстрації роботи системи
 public class RestaurantDemo {
     public static void main(String[] args) {
