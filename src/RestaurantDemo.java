@@ -9,15 +9,14 @@ public class RestaurantDemo {
         Waiter waiter = new Waiter("Марія", 1);
         Chef chef = new Chef("Петро", "Кухня італійська");
         
-        // Створення столу та замовлення
+        // Створення столу та замовлення (демонстрація композиції)
         Table table = new Table(1);
-        Order order = new Order(1);
-        table.setOrder(order);
+        Order order = table.createOrder(1);
         
         // Демонстрація процесу обслуговування
         visitor.scanMenu();
         visitor.makeOrder();
-        order.addItem("Піца Маргарита", 1);
+        order.addItem("Піца Маргарита", 1); // Демонстрація агрегації з OrderItem
         order.addItem("Тірамісу", 1);
         
         waiter.checkAllergens();
@@ -27,11 +26,13 @@ public class RestaurantDemo {
         chef.markReady();
         order.changeStatus("Готове");
         
-        PaymentService payment = new PaymentService();
-        payment.processPayment();
-        order.changeStatus("Оплачене");
+        // Демонстрація залежності між Order та PaymentService
+        order.processPayment();
         
         visitor.rateService();
         order.changeStatus("Завершене");
+        
+        // Завершення роботи зі столом
+        table.clearOrder();
     }
 }
