@@ -9,25 +9,29 @@ public class RestaurantDemo {
         Waiter waiter = new Waiter("Марія", 1);
         Chef chef = new Chef("Петро", "Кухня італійська");
         
-        // Створення столу та замовлення (демонстрація композиції)
+        // Створення столу
         Table table = new Table(1);
-        Order order = table.createOrder(1);
+        
+        // Демонстрація зв'язку Відвідувач --> Замовлення (створює)
+        Order order = visitor.createOrder(1);
+        table.setOrder(order);
         
         // Демонстрація процесу обслуговування
         visitor.scanMenu();
         visitor.makeOrder();
-        order.addItem("Піца Маргарита", 1); // Демонстрація агрегації з OrderItem
+        order.addItem("Піца Маргарита", 1);
         order.addItem("Тірамісу", 1);
         
+        // Демонстрація зв'язку Офіціант --> Замовлення (підтверджує)
+        waiter.setOrder(order);
         waiter.checkAllergens();
         waiter.confirmOrder();
-        order.changeStatus("Підтверджене");
         
         chef.markReady();
         order.changeStatus("Готове");
         
-        // Демонстрація залежності між Order та PaymentService
-        order.processPayment();
+        // Оплата через зв'язок відвідувача із замовленням
+        visitor.pay();
         
         visitor.rateService();
         order.changeStatus("Завершене");

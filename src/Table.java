@@ -7,11 +7,9 @@ public class Table {
         this.number = number;
     }
 
-    // Створення нового замовлення (композиція)
-    public Order createOrder(int orderId) {
-        this.currentOrder = new Order(orderId);
-        System.out.println("Створено нове замовлення для столу " + number);
-        return this.currentOrder;
+    public void setOrder(Order order) {
+        this.currentOrder = order;
+        System.out.println("Замовлення призначено столу " + number);
     }
 
     public Order getCurrentOrder() {
